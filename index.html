@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="et">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karina Korol Art - Stencil App</title>
+    <style>
+      body {
+        background-color: #0e0e0e;
+        color: white;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .auth-box {
+        background: #1a1a1a;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+        width: 300px;
+        text-align: center;
+      }
+
+      input {
+        width: 90%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 6px;
+        border: none;
+      }
+
+      button {
+        background: #fff;
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background: #ccc;
+      }
+
+      #status {
+        margin-top: 15px;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-box">
+      <h1>Stencil App</h1>
+      <input id="email" type="email" placeholder="E-mail" />
+      <input id="password" type="password" placeholder="Parool" />
+      <button onclick="signUp()">Loo konto</button>
+      <button onclick="signIn()">Logi sisse</button>
+      <p id="status"></p>
+    </div>
+
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+      const supabase = createClient(
+        "https://YOUR_PROJECT_URL.supabase.co",
+        "YOUR_PUBLIC_ANON_KEY"
+      );
+
+      async function signUp() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        document.getElementById("status").textContent = error
+          ? error.message
+          : "Konto loodud! Kontrolli oma e-posti.";
+      }
+
+      async function signIn() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        document.getElementById("status").textContent = error
+          ? error.message
+          : "Oled sisse logitud!";
+      }
+    </script>
+  </body>
+</html>
