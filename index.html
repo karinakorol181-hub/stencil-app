@@ -100,3 +100,12 @@
     </script>
   </body>
 </html>
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+  const supabaseUrl = 'https://evuztxfwzwmzoxpsvhvq.supabase.co'
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2dXp0eGZ3endtem94cHN2aHZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNzQ4MjksImV4cCI6MjA3Nzc1MDgyOX0.zd_6EaN5DcDgtvYEToEsEhU34WFIHS2ozo6CvOIPbOw'
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
+  console.log('✅ Supabase ühendatud!')
+</script>
